@@ -41,6 +41,11 @@
         .toFixed(2);
     });
 
+    // Add transaction:
+    const handleTransactionSubmitted = (transactionData) => {
+
+    };
+
     /*
     export default
     {
@@ -60,7 +65,7 @@
     <Header></Header>
 
     <div class="container">
-        <Balance :total="total">
+        <Balance :total="+total">
 
         </Balance>
 
@@ -72,6 +77,8 @@
 
         </TransactionList>
 
-        <AddTransaction></AddTransaction>
+        <AddTransaction @transactionSubmitted="handleTransactionSubmitted">
+
+        </AddTransaction>
     </div>
 </template>
