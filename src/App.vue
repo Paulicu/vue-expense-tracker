@@ -64,7 +64,7 @@
 
         </Balance>
 
-        <IncomeExpenses :income="income" :expenses="expenses">
+        <IncomeExpenses :income="+income" :expenses="+expenses">
 
         </IncomeExpenses>
 
