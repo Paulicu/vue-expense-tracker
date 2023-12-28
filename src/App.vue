@@ -14,10 +14,31 @@
         { id: 4, text: 'Camera', amount: 150 },
     ]);
 
+    // Get total:
     const total = computed(() => {
         return transactions.value.reduce((accumulator, transaction) => {
             return accumulator + transaction.amount;
         }, 0);
+    });
+
+    // Get income:
+    const income = computed(() => {
+        return transactions.value
+        .filter((transaction) => transaction.amount > 0)
+        .reduce((accumulator, transaction) => {
+            return accumulator + transaction.amount;
+        }, 0)
+        .toFixed(2);
+    });
+
+    // Get expenses:
+    const expenses = computed(() => {
+        return transactions.value
+        .filter((transaction) => transaction.amount < 0)
+        .reduce((accumulator, transaction) => {
+            return accumulator + transaction.amount;
+        }, 0)
+        .toFixed(2);
     });
 
     /*
@@ -43,12 +64,14 @@
 
         </Balance>
 
-        <IncomeExpenses></IncomeExpenses>
+        <IncomeExpenses :income="income" :expenses="expenses">
+
+        </IncomeExpenses>
 
         <TransactionList :transactions="transactions">
 
         </TransactionList>
-        
+
         <AddTransaction></AddTransaction>
     </div>
 </template>
