@@ -5,7 +5,11 @@
     import TransactionList from './components/TransactionList.vue';
     import AddTransaction from './components/AddTransaction.vue';
 
+    import { useToast } from 'vue-toastification';
+
     import { ref, computed } from 'vue';
+
+    const toast = useToast();
 
     const transactions = ref([
         { id: 1, text: 'Flower', amount: -19.99 },
@@ -43,8 +47,25 @@
 
     // Add transaction:
     const handleTransactionSubmitted = (transactionData) => {
+        transactions.value.push({
+            id: generateUniqueId(),
+            text: transactionData.text,
+            amount: transactionData.amount
+        });
 
+        toast.success('Transaction added succesfully!')
     };
+
+    // Generate unique ID:
+    const generateUniqueId = () => {
+        return Math.floor(Math.random() * 1000000);
+    };
+
+    // Delete transaction:
+    const handleTransactionDeleted = (id) => {
+        transactions.value = transactions.value.filter((transaction) => transaction.id !== id);
+        toast.success('Transaction removed successfully!');
+    ;}
 
     /*
     export default
@@ -73,7 +94,7 @@
 
         </IncomeExpenses>
 
-        <TransactionList :transactions="transactions">
+        <TransactionList :transactions="transactions" @transactionDeleted="handleTransactionDeleted">
 
         </TransactionList>
 
